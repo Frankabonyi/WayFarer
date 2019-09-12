@@ -19,5 +19,17 @@
   "bugs": {
     "url": "https://github.com/Frankabonyi/Wayfarer/issues"
   },
-  "homepage": "https://github.com/Frankabonyi/Wayfarer#readme"
+  "homepage": "https://github.com/Frankabonyi/Wayfarer#readme",
+  "dependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/preset-env": "^7.6.0",
+    "babel-cli": "^6.26.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "nodemon": "^1.19.2"
+  }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "bus-transportation-booking-api",
+  "version": "1.0.0",
+  "description": "a bus transportation booking server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frankabonyi/Wayfarer.git"
+  },
+  "keywords": [
+    "bus",
+    "trip"
+  ],
+  "author": "Franklin Abonyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frankabonyi/Wayfarer/issues"
+  },
+  "homepage": "https://github.com/Frankabonyi/Wayfarer#readme"
+}

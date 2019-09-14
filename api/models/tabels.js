@@ -102,7 +102,7 @@ const createTable = () => {
         console.log(err);
         pool.end();
     });
-}
+};
 
 pool.on('remove', () => {
     console.log();

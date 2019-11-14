@@ -1,22 +1,24 @@
 /*eslint-disable no-console*/
-const { pool } = require ('pg');
+const { Pool } = require ('pg');
 const dotenv = require ('dotenv');
 
 dotenv.config();
 
 const pool = new Pool ({
-    connectionString: process.env.DATABASE_URL,
+    
+    connectionString: process.env.DATABASE_URL
+
 });
 
 pool.on('connect', () => {
-    console.log('connected to database');
+    console.log('connected to Database');
 });
 
 
 const createTable = () => {
     // User table
-    const Users = `CREATE TABLE IF NOT EXIST users (
-        id SERIAL PRIMARY KEY,
+    const Users = `CREATE TABLE IF NOT EXISTS users (
+        user_id SERIAL PRIMARY KEY,
         first_name VARCHAR (100) NOT NULL,
         last_name VARCHAR (100) NOT NULL,
         email VARCHAR (100) UNIQUE NOT NULL,
@@ -37,8 +39,8 @@ const createTable = () => {
         });
     
     //  Bus table
-    const Bus = `CREATE TABLE IF NOT EXIST bus(
-        id SERIAL PRIMARY KEY,
+    const Bus = `CREATE TABLE IF NOT EXISTS bus(
+        bus_id SERIAL PRIMARY KEY,
         number_plate VARCHAR (50) UNIQUE NOT NULL,
         manfacturer VARCHAR (50),
         model VARCHAR (50),
@@ -55,19 +57,16 @@ const createTable = () => {
             console.log(err);
             pool.end();
         });
-
-    const Trips = `CREATE TABLE IF NOT EXIST trip (
-        id SERIAL KEY,
-        bus_id INTEGER NOT NULL UNIQUE,
+    const Trips = `CREATE TABLE IF NOT EXISTS trips (
+        trip_id SERIAL PRIMARY KEY,
+        bus_id INTEGER UNIQUE NOT NULL,
+        created_on  TIMESTAMP DEFAULT Now(),
         origin VARCHAR(150) NOT NULL,
         destination VARCHAR(150) NOT NULL,
         trip_date DATE NOT NULL,
         fare FLOAT(4) NOT NULL,
         status VARCHAR(64) NOT NULL,
-        created_on  DATE DEFAULT CURRENT_DATE,
-        modified_on DATE NOT NULL,
-        PRIMARY KEY (trip_id, bus_id),
-        FOREIGN KEY (bus_id) REFERENCES bus(bus_id)
+        modified_on DATE NOT NULL
     )`;
     pool.query(Trips)
     .then(res => {
@@ -77,21 +76,20 @@ const createTable = () => {
     .catch(err => {
         console.log(err);
         pool.end();
-    });
+    }); 
 
 
-    const Bookings = `CREATE TABLE IF NOT EXIST booking (
-        id SERIAL PRIMARY KEY,
-        trip_id INTEGER NOT NULL,
-        user_id INTEGER NOT NULL,
-        created_on  DATE NOT NULL,
-        trip_time TIMESTAMP NOT NULL,
+    const Bookings = `CREATE TABLE IF NOT EXISTS bookingS (
+        booking_id SERIAL PRIMARY KEY,
+        user_id INT NOT NULL,
+        trip_id SERIAL PRIMARY KEY,
+        created_on  TIMESTAMP DEFAULT Now(),
+        bus_id SERIAL PRIMARY KEY,
+        trip_date TIMESTAMP NOT NULL,
         seat_number INTEGER NOT NULL,
         first_name VARCHAR (100) NOT NULL,
         last_name VARCHAR (100) NOT NULL,
-        email VARCHAR (100) UNIQUE NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users(user_id),
-        FOREIGN KEY (trip_id) REFERENCES trip(trip_id)
+        email VARCHAR (100) UNIQUE NOT NULL
     )`;
     pool.query(Bookings)
     .then(res => {

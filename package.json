@@ -4,6 +4,7 @@
   "description": "a bus transportation booking server",
   "main": "index.js",
   "scripts": {
+    "create": "node ./api/models/tables createTable",
     "start": "nodemon --exec babel-node server.js"
   },
   "repository": {
@@ -28,6 +29,7 @@
     "dotenv": "^8.1.0",
     "eslint-plugin-import": "^2.18.2",
     "express": "^4.17.1",
+    "make-runnable": "^1.3.6",
     "pg": "^7.12.1"
   },
   "devDependencies": {
